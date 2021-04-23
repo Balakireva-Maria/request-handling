@@ -25,8 +25,7 @@ def bus_stations(request):
 
 
     return render (request, 'index.html',  context={
-        'bus_stations': [{'Name': 'название', 'Street': 'улица', 'District': 'район'},
-                         {'Name': 'другое название', 'Street': 'другая улица', 'District': 'другой район'}],
+        'bus_stations': (page_object.object_list),
         'current_page': current_page,
         'prev_page_url': None,
         'next_page_url': next_page_url,

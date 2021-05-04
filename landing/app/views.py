@@ -42,9 +42,17 @@ def stats(request):
     transition_to_test = counter_transition['test']
     showing_of_original =counter_show['original']
     showing_of_test = counter_show['test']
+    if showing_of_test == 0:
+        testconversion = 'Страница показана 0 раз'
+    else:
+        testconversion = transition_to_test/showing_of_test
+    if showing_of_original == 0:
+        originalconversion = 'Страница показана 0 раз'
+    else:
+        originalconversion = transition_to_original/showing_of_original
 
     return render(request, 'stats.html', context={
-        'test_conversion': transition_to_test/showing_of_test,
-        'original_conversion': transition_to_original/showing_of_original
+        'test_conversion': testconversion,
+        'original_conversion': originalconversion
     })
 

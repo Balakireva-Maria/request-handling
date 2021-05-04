@@ -20,14 +20,21 @@ def bus_stations(request):
     page_number = int(request.GET.get('page',1))
     paginator = Paginator(CONTENT, 13)
     page_object = paginator.get_page(page_number)
-    current_page = 1
-    next_page_url = reverse('bus_stations') + f'?page={page_object.next_page_number()}'
+    if page_object.has_next():
+        next_page_url = reverse('bus_stations') + f'?page={page_object.next_page_number()}'
+    else:
+        next_page_url = None
+    if page_number == 1:
+        prev_page_url = None
+    else:
+        prev_page_url = page_object.previous_page_number()
+
 
 
     return render (request, 'index.html',  context={
         'bus_stations': (page_object.object_list),
-        'current_page': current_page,
-        'prev_page_url': None,
+        'current_page': page_object,
+        'prev_page_url': prev_page_url,
         'next_page_url': next_page_url,
     }
     )
